@@ -1,29 +1,33 @@
-print ("\33[34 kimeerteam password list")
-n=input("\33[31m your inputs:")
-word=n.split(";")
-np=0
-for i in range(1,len(word)+1):
-    np+=len(word)**i
+import os
+os.system("")
+class COLOR():
+    RED="\033[31m"
+    GREEN="\033[32m"
+    YELLOW="\033[33m"
+inputs=input(COLOR.RED+"Your inputs(split them by ';'):"+COLOR.YELLOW)
+word=inputs.split(";")
+out_num=0
+for num in range(len(word)):
+    out_num+=len(word)**(num+1)
 build="import sys\n"
-build+="np="+str(np)+"\n"+"i=0\n"
-build+='word='+str(word)+"\n"
-build+="nl=chr(10)"+"\n"
-build+='file=open("kimeer.txt","w")'+"\n"
-if len(word)>3:
-    wrd=3
-else:
-    wrd=len(word)
-for i in range(wrd):
-    H=""
+build+="words="+str(word)+"\n"
+build+="file=open('passwords.txt','w')\n"
+build+="_out_num="+str(out_num)+"\n"
+build+="prog_num=1\n"
+for i in range(len(word)):
+    tab=""
+    output=""
     for j in range(i+1):
-        build+=("    "*j)+"for a"+str(j)+" in word:"+"\n"
-        H+="a"+str(j)+"+"
-    build+=("    "*(i+1))+"file.write("+H[:len(H)-1]+"+nl)"+"\n"
-    build+=("    "*(i+1))+"i+=1\n"
-    build+=("    "*(i+1))+"b=str(i)+' of '+str(np)\n"
-    build+=("    "*(i+1))+"sys.stdout.write(len(b)*'\b')\n"
-    build+=("    "*(i+1))+"sys.stdout.flush()\n"
-    build+=("    "*(i+1))+"sys.stdout.write(b)\n"
+        build+=tab+"for a"+str(j)+" in words:\n"
+        tab+="   "
+    for k in range(i+1):
+        output+="a"+str(k)+"+"
+    build+=tab+"file.write("+output[:len(output)-1]+"+chr(10))\n"
+    build+=tab+"progress=str(prog_num)+' of '+str(_out_num)\n"
+    build+=tab+"prog_num+=1\n"
+    build+=tab+"sys.stdout.write(progress)\n"
+    build+=tab+"sys.stdout.flush()\n"
+    build+=tab+"sys.stdout.write(chr(8)*len(progress))\n"
 build+="file.close()"
 exec(build)
-print(str(np)+" passwords saved in kimeer.txt")
+print(COLOR.GREEN+str(out_num)+" passwords saved in passwords.txt"+"\033[39m")
